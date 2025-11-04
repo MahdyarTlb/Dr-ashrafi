@@ -1,7 +1,5 @@
 def process_matrix(arr, n):
-    """
-    پردازش ماتریس n * n بر اساس قوانین داده شده
-    """
+    
     result = [row[:] for row in arr]
     
     for i in range(n):
