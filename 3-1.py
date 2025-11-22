@@ -1,6 +1,4 @@
-'''
-this code calculate fibo without recursive algorithm
-'''
+
 def fibo(n: int) -> int:
     
     # base case
