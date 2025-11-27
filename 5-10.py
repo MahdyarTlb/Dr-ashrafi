@@ -6,36 +6,31 @@
 
 
 
-def stack_f(ebarat):
-    my_stack = []
+def prefix(e):
     
-    tokens = ebarat.strip().split()
+    op_stack = []      # operators
+    val_stack = []     # values
     
-    tokens.reverse()
-    
+    tokens = e.split()
+
     for token in tokens:
-        if token.isdigit():
-            my_stack.append(int(token))
+        if token in ['+', '-', '*', '/']:
+            op_stack.append(token)
+            
         else:
-            num1 = my_stack.pop()
-            num2 = my_stack.pop()
-            
-            if token == '+':
-                result = num1 + num2
-            elif token == '-':
-                result = num1 - num2
-            elif token == '*':
-                result = num1 * num2
-            elif token == '/':
-                result = num1 / num2
-                
-            my_stack.append(result)
-            
-    print(my_stack[0])
+            val_stack.append(int(token))
+
+            while len(val_stack) >= 2 and len(op_stack) >= 1:
+                right = val_stack.pop()
+                left = val_stack.pop()
+                op = op_stack.pop()
+
+                if op == '+': val_stack.append(left + right)
+                elif op == '-': val_stack.append(left - right)
+                elif op == '*': val_stack.append(left * right)
+                elif op == '/': val_stack.append(left / right)
+
+    return val_stack[0]
         
-        
-        
-        
-ebarat = "* / 5 + 5 5 5"
- 
-stack_f(ebarat)
+e = "* / 5 + 5 5 5"
+prefix(e)
