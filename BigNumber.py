@@ -117,18 +117,18 @@ class BigNumber:
         n = max(len(a.digits), len(b.digits))
         half = (n + 1) // 2
 
-        # تقسیم عدد به دو نیمه (بالا و پایین)
+        # two parts, up and down
         x1 = a.split_high(half)
         x0 = a.split_low(half)
         y1 = b.split_high(half)
         y0 = b.split_low(half)
 
-        # سه ضرب بازگشتی
+        # 3 products recursive
         p1 = x1.multiply_recursive(y1)                    # X₁ × Y₁
         p2 = x0.multiply_recursive(y0)                    # X₀ × Y₀
         p3 = (x0 + x1).multiply_recursive(y0 + y1)         # (X₀+X₁) × (Y₀+Y₁)
 
-        # وسط = p3 - p1 - p2
+        # middle = p3 - p1 - p2
         middle = p3 - p1 - p2
 
         # جابجایی به توان‌های 10
