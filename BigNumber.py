@@ -82,7 +82,7 @@ class BigNumber:
 
         return BigNumber("".join(map(str, result[::-1])))
 
-    # product
+    # product -1
     def __mul__(self, other):
         a = self.digits[::-1]
         b = other.digits[::-1]
@@ -105,6 +105,41 @@ class BigNumber:
         res_str = "".join(map(str, result[::-1]))
         return BigNumber(res_str if sign == 1 else "-" + res_str)
 
+    # product -2 : recursive
+    def multiply_recursive(self, other):
+        a = self.clean()
+        b = other.clean()
+
+        if a.to_int() < 1000 or b.to_int() < 1000:
+            return a * b
+
+        # select longest length
+        n = max(len(a.digits), len(b.digits))
+        half = (n + 1) // 2
+
+        # تقسیم عدد به دو نیمه (بالا و پایین)
+        x1 = a.split_high(half)
+        x0 = a.split_low(half)
+        y1 = b.split_high(half)
+        y0 = b.split_low(half)
+
+        # سه ضرب بازگشتی
+        p1 = x1.multiply_recursive(y1)                    # X₁ × Y₁
+        p2 = x0.multiply_recursive(y0)                    # X₀ × Y₀
+        p3 = (x0 + x1).multiply_recursive(y0 + y1)         # (X₀+X₁) × (Y₀+Y₁)
+
+        # وسط = p3 - p1 - p2
+        middle = p3 - p1 - p2
+
+        # جابجایی به توان‌های 10
+        shift_2m = BigNumber("1" + "0" * (2 * half))
+        shift_m  = BigNumber("1" + "0" * half)
+
+        result = p1 * shift_2m + middle * shift_m + p2
+
+        result.sign = self.sign * other.sign
+        return result.clean()
+    
     # divide
     def __truediv__(self, other):
         if str(other) == "0":
