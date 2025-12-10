@@ -1,5 +1,5 @@
 ## approach:
-# if  the exit stack is empty, multi pop the first stack
+# if the exit stack is empty, multi pop the first stack
 # and push it into the exit stack
 # now pop can be like dequeue
 

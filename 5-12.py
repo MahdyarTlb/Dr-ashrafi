@@ -14,18 +14,18 @@ class StackWithTwoQueues:
 
     def push(self, x):
         self.main.append(x)
-        print(f"اضافه شد: {x} → پشته: {list(self.main)}")
+        print(f" added to stack: {x} {list(self.main)}")
 
     def pop(self):
         if not self.main:
-            print("پشته خالیه !")
+            print("empty stack!")
             return None
 
         while len(self.main) > 1:
             self.temp.append(self.main.popleft())
 
         top = self.main.popleft()
-        print(f"حذف شد: {top} (آخرین چیزی که اومده بود)")
+        print(f"deleted last item {top} ")
 
         while self.temp:
             self.main.append(self.temp.popleft())
