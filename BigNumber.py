@@ -199,8 +199,7 @@ class BigNumber:
         
         return result.clean()
 
-    
-    # divide
+        # divide
     def __truediv__(self, other):
         if str(other) == "0":
             return BigNumber("divide by zero")

@@ -16,7 +16,7 @@ def prefix_to_infix(e):
             
             expr = f"({op1} {token} {op2})"
             stack.append(expr)
-        elif token.isdigit():
+        elif token.lstrip("-").isdigit():
             stack.append(token)
             
         else:
@@ -40,7 +40,7 @@ def suffix(e):
     tokens = e.strip().split()
         
     for token in tokens:
-        if token.isdigit():
+        if token.lstrip("-").isdigit():
             my_stack.append(int(token))
         elif token in ['+', '-', '*', '/']:
             
@@ -77,7 +77,7 @@ def infix_to_prefix(e):
     tokens = e.split()
 
     for token in tokens:
-        if token.isdigit():
+        if token.strip("-").isdigit():
             expr_stack.append(token)
 
         elif token == '(':
@@ -142,7 +142,7 @@ def infix_to_post(e):
     tokens = e.split()
 
     for token in tokens:
-        if token.isdigit():
+        if token.lstrip("-").isdigit():
             expr_stack.append(token)
 
         elif token == '(':
@@ -204,7 +204,7 @@ def infix_to_post(e):
 
     return expr_stack[0]
 
-print(infix_to_prefix("10 / ( 5 - 3 )"))
-print(infix_to_post("10 / ( 5 - 3 )"))
-print(prefix_to_infix("/ 10 + 5 2"))
-print(suffix("2 5 8 1 + * /"))
+print(infix_to_prefix("-10 / ( 5 - 3 )"))
+print(infix_to_post("10 / ( -5 - 3 )"))
+print(prefix_to_infix("/ 10 + -5 2"))
+print(suffix("2 5 8 -1 + * /"))
